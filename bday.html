@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>A Little Place For You ❤️</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#0b0b0b;
+    color:#f5f2ed;
+    font-family:'DM Sans',sans-serif;
+    overflow-x:hidden;
+}
+
+section{
+    min-height:100vh;
+    padding:80px 24px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+/* ---------------- HERO ---------------- */
+
+.hero{
+    text-align:center;
+    position:relative;
+}
+
+.small{
+    font-size:11px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    color:#999;
+    margin-bottom:35px;
+}
+
+.hero h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(55px,15vw,130px);
+    font-weight:400;
+    line-height:.9;
+}
+
+.hero h1 span{
+    font-style:italic;
+}
+
+.hero-sub{
+    margin-top:35px;
+    color:#888;
+    font-size:14px;
+}
+
+.scroll{
+    position:absolute;
+    bottom:30px;
+    font-size:11px;
+    letter-spacing:3px;
+    color:#777;
+}
+
+/* ---------------- INTRO ---------------- */
+
+.intro{
+    text-align:center;
+    background:#f2eee8;
+    color:#171717;
+}
+
+.intro p{
+    max-width:650px;
+    font-family:'Playfair Display',serif;
+    font-size:clamp(28px,6vw,52px);
+    line-height:1.25;
+}
+
+.intro p em{
+    color:#9c5265;
+}
+
+/* ---------------- PHOTO ---------------- */
+
+.photo-section{
+    gap:35px;
+}
+
+.photo{
+    width:min(420px,90vw);
+    height:540px;
+    object-fit:cover;
+    border-radius:4px;
+    filter:saturate(.8);
+    opacity:0;
+    transform:translateY(40px);
+    transition:1.2s ease;
+}
+
+.photo.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.caption{
+    text-align:center;
+}
+
+.caption h2{
+    font-family:'Playfair Display',serif;
+    font-size:32px;
+    font-weight:400;
+    margin-bottom:12px;
+}
+
+.caption p{
+    color:#888;
+    font-size:14px;
+}
+
+/* ---------------- MEMORIES ---------------- */
+
+.memories{
+    background:#121212;
+    align-items:flex-start;
+}
+
+.section-title{
+    width:100%;
+    max-width:900px;
+    margin:auto;
+}
+
+.section-number{
+    color:#777;
+    font-size:11px;
+    letter-spacing:3px;
+    margin-bottom:15px;
+}
+
+.section-title h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(38px,8vw,70px);
+    font-weight:400;
+}
+
+.memory-list{
+    width:100%;
+    max-width:900px;
+    margin:60px auto 0;
+}
+
+.memory{
+    display:flex;
+    align-items:center;
+    gap:30px;
+    padding:28px 0;
+    border-bottom:1px solid #292929;
+    opacity:0;
+    transform:translateX(-30px);
+    transition:.8s ease;
+}
+
+.memory.show{
+    opacity:1;
+    transform:translateX(0);
+}
+
+.memory span{
+    color:#666;
+    font-size:12px;
+}
+
+.memory h3{
+    font-family:'Playfair Display',serif;
+    font-size:25px;
+    font-weight:400;
+}
+
+/* ---------------- LITTLE THINGS ---------------- */
+
+.little{
+    background:#f2eee8;
+    color:#171717;
+}
+
+.little-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    max-width:800px;
+    width:100%;
+    margin-top:50px;
+}
+
+.little-card{
+    padding:35px 20px;
+    border:1px solid #d8d2ca;
+    min-height:150px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.little-card span{
+    font-size:11px;
+    color:#999;
+    margin-bottom:12px;
+}
+
+.little-card h3{
+    font-family:'Playfair Display',serif;
+    font-size:23px;
+    font-weight:400;
+}
+
+/* ---------------- SECRET ---------------- */
+
+.secret{
+    text-align:center;
+}
+
+.secret p{
+    color:#777;
+    font-size:13px;
+    margin-bottom:25px;
+}
+
+.secret button{
+    background:transparent;
+    border:1px solid #444;
+    color:#fff;
+    padding:16px 28px;
+    cursor:pointer;
+    letter-spacing:2px;
+    font-size:11px;
+    transition:.3s;
+}
+
+.secret button:hover{
+    background:#fff;
+    color:#000;
+}
+
+.hidden-message{
+    display:none;
+    max-width:600px;
+    margin-top:60px;
+}
+
+.hidden-message.active{
+    display:block;
+    animation:fadeUp 1.5s ease;
+}
+
+.hidden-message p{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(28px,6vw,48px);
+    line-height:1.35;
+    color:#f5f2ed;
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* ---------------- LETTER ---------------- */
+
+.letter{
+    background:#e9e2d8;
+    color:#171717;
+}
+
+.paper{
+    width:min(650px,90vw);
+    background:#fffdf8;
+    padding:50px 35px;
+    box-shadow:0 20px 60px rgba(0,0,0,.15);
+    transform:rotate(-1deg);
+}
+
+.paper small{
+    color:#999;
+    letter-spacing:2px;
+}
+
+.paper h2{
+    font-family:'Playfair Display',serif;
+    font-size:38px;
+    font-weight:400;
+    margin:30px 0;
+}
+
+.paper p{
+    font-family:'Playfair Display',serif;
+    font-size:18px;
+    line-height:1.8;
+    color:#444;
+}
+
+/* ---------------- FINAL ---------------- */
+
+.final{
+    position:relative;
+    text-align:center;
+}
+
+.final .line{
+    width:1px;
+    height:70px;
+    background:#444;
+    margin-bottom:40px;
+}
+
+.final h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(50px,12vw,100px);
+    font-weight:400;
+}
+
+.final h1 span{
+    font-style:italic;
+}
+
+.final p{
+    max-width:500px;
+    margin:30px auto;
+    color:#888;
+    line-height:1.8;
+}
+
+.end{
+    margin-top:80px;
+    color:#444;
+    font-size:10px;
+    letter-spacing:3px;
+}
+
+/* ---------------- HEARTS ---------------- */
+
+.heart{
+    position:fixed;
+    bottom:-20px;
+    font-size:14px;
+    opacity:.5;
+    animation:float 6s linear forwards;
+    pointer-events:none;
+}
+
+@keyframes float{
+    from{
+        transform:translateY(0);
+        opacity:0;
+    }
+    20%{
+        opacity:.6;
+    }
+    to{
+        transform:translateY(-110vh) rotate(25deg);
+        opacity:0;
+    }
+}
+
+/* ---------------- MOBILE ---------------- */
+
+@media(max-width:600px){
+
+    section{
+        padding:70px 20px;
+    }
+
+    .photo{
+        height:470px;
+    }
+
+    .memory{
+        gap:18px;
+    }
+
+    .memory h3{
+        font-size:20px;
+    }
+
+    .little-grid{
+        grid-template-columns:1fr;
+    }
+
+    .paper{
+        padding:40px 25px;
+    }
+
+    .paper h2{
+        font-size:32px;
+    }
+
+    .paper p{
+        font-size:17px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+
+A<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="small">
+         Something is special to My Love ❤️
+    </div>
+
+    <!-- CHANGE HER NAME -->
+    <h1>
+         <span>Ashra</span>
+    </h1>
+
+    <div class="hero-sub">
+    
+    </div>
+
+    <div class="scroll">
+        Scroll Slow Baby
+    </div>
+
+</section>
+
+
+<!-- ================= INTRO ================= -->
+
+<section class="intro">
+
+    <p>
+        I could've just said  
+      <br>  <em>"Happy Birthday ❤️"</em> </br>
+    
+        But you deserve a much more than a word
+    </p>
+
+</section>
+
+
+<!-- ================= PHOTO 01 ================= -->
+
+<section class="photo-section">
+
+    <!-- CHANGE PHOTO -->
+    <img
+        src="ad.jpg"
+        class="photo reveal"
+        alt="Her photo"
+    >
+
+    <div class="caption">
+
+        <h2>This is you.</h2>
+
+        <p>
+            And somehow, one person can make
+            an ordinary life feel so special.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= MEMORIES ================= -->
+
+<section class="memories">
+
+    <div class="section-title">
+
+        <div class="section-number">
+            01 / MEMORIES
+        </div>
+
+        <h2>
+            Little moments.<br>
+            Big memories.
+        </h2>
+
+    </div>
+
+
+    <div class="memory-list">
+
+        <div class="memory reveal">
+            <span>01</span>
+            <h3>The first time we talked.</h3>
+        </div>
+
+        <div class="memory reveal">
+            <span>02</span>
+            <h3>That conversation we never wanted to end.</h3>
+        </div>
+
+        <div class="memory reveal">
+            <span>03</span>
+            <h3>That random day that became a memory.</h3>
+        </div>
+
+        <div class="memory reveal">
+            <span>04</span>
+            <h3>All the stupid things we laughed about.</h3>
+        </div>
+
+        <div class="memory reveal">
+            <span>05</span>
+            <h3>And all the moments still waiting for us.</h3>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PHOTOS ================= -->
+
+<section class="photo-section">
+
+    <img
+        src="ad.jpg"
+        class="photo reveal"
+        alt="Memory"
+    >
+
+    <div class="caption">
+
+        <h2>One of my favorites.</h2>
+
+        <p>
+            Not because the picture is perfect.
+            Because the person in it is.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= LITTLE THINGS ================= -->
+
+<section class="little">
+
+    <div class="section-title">
+
+        <div class="section-number">
+            02 / LITTLE THINGS
+        </div>
+
+        <h2>
+            Things you <br>
+            own so special.
+        </h2>
+
+    </div>
+
+
+    <div class="little-grid">
+
+        <div class="little-card">
+            <span>01</span>
+            <h3>You have this strange little magic of making an ordinary day feel like a memory I never want to forget. </h3>
+        </div>
+
+        <div class="little-card">
+            <span>02</span>
+            <h3>Some people feel like home, and somehow, you became mine without even trying.</h3>
+        </div>
+
+        <div class="little-card">
+            <span>03</span>
+            <h3>If life gave me a thousand different stories to live, I think my heart would still look for you in every single one. </h3>
+        </div>
+
+        <div class="little-card">
+            <span>04</span>
+            <h3>You never have to be perfect, happy, or strong around me. I want to love you on the days when even you find yourself difficult to love. </h3>
+        </div>
+
+        <div class="little-card">
+            <span>05</span>
+            <h3>I don't always need a perfect conversation with you. Sometimes, just knowing you're there feels like enough. </h3>
+        </div>
+
+        <div class="little-card">
+            <span>06</span>
+            <h3>Give me the boring days, silly arguments, random laughter, and little routines with you. I don't need a perfect love story; I just want ours. </h3>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SECRET ================= -->
+
+<section class="secret">
+
+    <p>
+        There is something hidden here.
+    </p>
+
+    <button onclick="openSecret()">
+        OPEN SECRET
+    </button>
+
+
+    <div class="hidden-message" id="secret">
+
+        <p>
+            Sometimes I wonder if you realise how much happiness you bring into my world, just by being you. If not, I hope I spend a lifetime showing you. ❤️
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= LETTER ================= -->
+
+<section class="letter">
+
+    <div class="paper">
+
+        <small>
+            A LETTER FOR YOU
+        </small>
+
+        <h2>
+            Dear Beautiful,
+        </h2>
+
+        <p>
+
+            Happy Birthday ❤️
+
+            <br><br>
+
+            I don't know if words will ever be enough
+            to explain how much you mean to me.
+
+            <br><br>
+
+            You've become a part of my life in a way
+            that I never expected.
+
+            <br><br>
+
+            Thank you for every conversation,
+            every laugh, every little moment,
+            and even all the stupid arguments.
+
+            <br><br>
+
+            I hope this year brings you everything
+            you've been wishing for.
+
+            <br><br>
+
+            Keep smiling.
+            Keep being yourself.
+            And never forget how special you are.
+
+            <br><br>
+
+            I'm really lucky to have you.
+
+            <br><br>
+
+            Happy Birthday, my favorite person. ❤️
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FINAL ================= -->
+
+<section class="final">
+
+    <div class="line"></div>
+
+    <h1>
+        Happy <span>Birthday.</span>
+    </h1>
+
+    <p>
+
+        I don't know what the next chapters
+        of life look like...
+
+        <br><br>
+
+        But I'm happy you're somewhere
+        in mine.
+
+        ❤️
+
+    </p>
+
+    <div class="end">
+        END OF WEBSITE.
+        <br><br>
+        NOT THE STORY.
+    </div>
+
+</section>
+
+
+<script>
+
+/* SECRET MESSAGE */
+
+function openSecret(){
+
+    document
+        .getElementById("secret")
+        .classList.add("active");
+
+}
+
+
+/* SCROLL REVEAL */
+
+const elements =
+document.querySelectorAll(".reveal");
+
+const observer =
+new IntersectionObserver(
+(entries)=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            entry.target.classList.add("show");
+        }
+    });
+},
+{
+    threshold:.2
+});
+
+elements.forEach(el=>{
+    observer.observe(el);
+});
+
+
+/* FLOATING HEARTS */
+
+function createHeart(){
+
+    const heart =
+    document.createElement("div");
+
+    heart.className="heart";
+    heart.innerHTML="♥";
+
+    heart.style.left =
+    Math.random()*100+"vw";
+
+    heart.style.animationDuration =
+    (4+Math.random()*4)+"s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },8000);
+}
+
+setInterval(createHeart,1800);
+
+</script>
+
+</body>
+</html>
+```
